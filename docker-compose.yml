@@ -1,0 +1,120 @@
+#sacado de las slides del curso
+version: '2'
+
+services:
+  elasticsearch_workshop_1:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
+    container_name: elasticsearch_workshop_1
+    environment:
+      - "cluster.name=elasticsearch_cluster"    #sets cluster name
+      - "node.name=elasticsearch1"               #sets node name
+      - "network.host=0.0.0.0"                  #sets binding ip to all
+      - "xpack.security.enabled=false"          #disabes xpack security
+      - "xpack.monitoring.enabled=false"        #disabes xpack monitorng
+      - "xpack.watcher.enabled=false"           #disabes xpack watcher
+      - "xpack.ml.enabled=false"                #disabes xpack ml
+      - "bootstrap.memory_lock=true"            #disables memory swap
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"      #sets allocated memory
+      - "discovery.zen.ping.unicast.hosts=elasticsearch_workshop_1,elasticsearch_workshop_2,elasticsearch_workshop_3"
+      - "discovery.zen.minimum_master_nodes=2"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es_data1:/usr/share/elasticsearch/data
+#      - /home/moloch/Escritorio/datos_elastic/elasticsearch_workshop_1:/usr/share/elasticsearch/data
+    ports:
+      - "9201:9200"    
+      - "9301:9300"
+#    networks:
+#      - red_docker
+
+  elasticsearch_workshop_2:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
+    container_name: elasticsearch_workshop_2
+    environment:
+      - "cluster.name=elasticsearch_cluster"    #sets cluster name
+      - "node.name=elasticsearch2"               #sets node name
+      - "network.host=0.0.0.0"                  #sets binding ip to all
+      - "xpack.security.enabled=false"          #disabes xpack security
+      - "xpack.monitoring.enabled=false"        #disabes xpack monitorng
+      - "xpack.watcher.enabled=false"           #disabes xpack watcher
+      - "xpack.ml.enabled=false"                #disabes xpack ml
+      - "bootstrap.memory_lock=true"            #disables memory swap
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"      #sets allocated memory
+      - "discovery.zen.ping.unicast.hosts=elasticsearch_workshop_1,elasticsearch_workshop_2,elasticsearch_workshop_3"
+      - "discovery.zen.minimum_master_nodes=2"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es_data2:/usr/share/elasticsearch/data
+#      - /home/moloch/Escritorio/datos_elastic/elasticsearch_workshop_2:/usr/share/elasticsearch/data
+    ports:
+      - "9202:9200"    
+      - "9302:9300"
+#    networks:
+#      - red_docker
+
+  elasticsearch_workshop_3:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
+    container_name: elasticsearch_workshop_3
+    environment:
+      - "cluster.name=elasticsearch_cluster"    #sets cluster name
+      - "node.name=elasticsearch3"               #sets node name
+      - "network.host=0.0.0.0"                  #sets binding ip to all
+      - "xpack.security.enabled=false"          #disabes xpack security
+      - "xpack.monitoring.enabled=false"        #disabes xpack monitorng
+      - "xpack.watcher.enabled=false"           #disabes xpack watcher
+      - "xpack.ml.enabled=false"                #disabes xpack ml
+      - "bootstrap.memory_lock=true"            #disables memory swap
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"      #sets allocated memory
+      - "discovery.zen.ping.unicast.hosts=elasticsearch_workshop_1,elasticsearch_workshop_2,elasticsearch_workshop_3"
+      - "discovery.zen.minimum_master_nodes=2"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es_data3:/usr/share/elasticsearch/data
+#      - /home/moloch/Escritorio/datos_elastic/elasticsearch_workshop_3:/usr/share/elasticsearch/data
+    ports:
+      - "9203:9200"    
+      - "9303:9300"
+#    networks:
+#      - red_docker
+
+
+  cerebro:
+    image: yannart/cerebro:0.8.1
+    container_name: cerebro_workshop
+    ports:
+      - "9000:9000"
+    external_links:
+      - elasticsearch_workshop_1:elasticsearch1
+      - elasticsearch_workshop_2:elasticsearch2
+      - elasticsearch_workshop_3:elasticsearch3
+#    networks:
+#      - red_docker
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.5.4
+    container_name: kibana_workshop
+    ports:
+      - "5601:5601"
+    external_links:
+      - elasticsearch_workshop_1:elasticsearch1
+#    networks:
+#      - red_docker
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch1:9201
+
+#networks:
+#    red_docker:
+
+volumes:
+    es_data1:
+    es_data2:
+    es_data3:
