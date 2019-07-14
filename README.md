@@ -42,7 +42,7 @@ portatil con 16gb de ram procesador i7
 ## Uso básico:
 
 
-**Inicar el cluster** en modo detached (la primera vez puede tardar en arrancar kibana varios minutos):
+**Inicar el cluster** en modo detached (la primera vez puede tardar en arrancar dependiendo de los datos almacenados):
 
 _**docker-compose up -d**_
 
@@ -98,6 +98,7 @@ Nodo 3: _**http://localhost:9203**_
 
 ## Problemas:
 
+Al arrancar verás que cerebro da errores hasta que elasticsearch arranca, es normal pues cerebro arranca más rápido.
 
 Si da error de memoria con un mensaje similar a este:
 
