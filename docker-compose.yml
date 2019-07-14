@@ -105,7 +105,7 @@ services:
 #    networks:
 #      - red_docker
     environment:
-      ELASTICSEARCH_URL: http://elasticsearch:9200
+      ELASTICSEARCH_URL: http://elasticsearch1:9200
 
 #networks:
 #    red_docker:
