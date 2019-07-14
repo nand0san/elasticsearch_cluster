@@ -88,12 +88,17 @@ services:
     container_name: cerebro_workshop
     ports:
       - "9000:9000"
+    depends_on:
+      - elasticsearch_workshop_1
+      - elasticsearch_workshop_2
+      - elasticsearch_workshop_3
     external_links:
       - elasticsearch_workshop_1:elasticsearch1
       - elasticsearch_workshop_2:elasticsearch2
       - elasticsearch_workshop_3:elasticsearch3
 #    networks:
 #      - red_docker
+
 
   kibana:
     image: docker.elastic.co/kibana/kibana:6.5.4
