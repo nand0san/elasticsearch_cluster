@@ -60,7 +60,7 @@ Limpieza general de contenedores y redes creadas:
 
 __**docker system prune -f**__
 
-Eliminación de datos almacenamos del cluster:
+Eliminación de datos almacenamos del cluster (se puede hacer de manera mas visual accediendo a cerebro):
 
 __**docker volume prune -f**__
 
@@ -81,7 +81,7 @@ __Nota: Para que cerebro conecte con el cluster emplear la url: **http://elastic
 
 ## Para ingestión de datos:
 
-Este cluster no está configurado con ningún gestor de ingesta de datos como pudiera ser Beats o Logstash.
+Este cluster no está configurado con ningún agente de ingesta de datos como pudiera ser Beats o Logstash.
 
 Configura los agentes beats o logstash (no incluidos en este repositorio) apuntando a los nodos:
 
