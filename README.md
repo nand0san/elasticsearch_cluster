@@ -42,7 +42,7 @@ portatil con 16gb de ram procesador i7
 ## Uso básico:
 
 
-**Inicar el cluster** en modo detached (la primera vez puede tardar en arrancar dependiendo de los datos almacenados):
+**Inicar el cluster** en modo detached (puede tardar en arrancar dependiendo de los datos almacenados):
 
 _**docker-compose up -d**_
 
