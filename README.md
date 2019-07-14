@@ -3,7 +3,9 @@
 # Elasticsearch Cluster
 
 
-Cluster en docker compose para iniciar tres nodos y kibana. Incluye **cerebro** para monitorización interna de shards y réplicas. 
+Cluster en docker compose para iniciar tres nodos y kibana. 
+
+Incluye **cerebro** para monitorización interna de shards y réplicas. 
 
 El cluster está dotado de persistencia de datos aunque se paren los contenedores y se eliminen a través de los volúmenes gestionados por la plataforma docker según su archivo docker-compose.yml.
 
@@ -68,13 +70,7 @@ __**docker volume prune -f**__
 
 Podemos acceder al entorno del cluster a través de kibana:
 
-Nodo 1: __**http://localhost:9201**__
-
-Nodo 2: __**http://localhost:9202**__
-
-Nodo3: __**http://localhost:9203**__
-
-__Nota: da igual a que nodo te conectes o a que nodo apuntes con los logstash o beats empleados, elasticsearch tiene la propiedad de repartir la carga de trabajo automáticamente y con cerebro puedes visualizar como se reparte cada nodo los shards de cada index y sus replicas.
+__**http://localhost:5601/**__
 
 Para acceder a cerebro y gestionar el cluster:
 
@@ -86,6 +82,16 @@ __Nota: Para que cerebro conecte con el cluster emplear la url: **http://elastic
 ## Para ingestión de datos:
 
 Este cluster no está configurado con ningún gestor de ingesta de datos como pudiera ser Beats o Logstash.
+
+Configura los agentes beats o logstash (no incluidos en este repositorio) apuntando a los nodos:
+
+Nodo 1: __**http://localhost:9201**__
+
+Nodo 2: __**http://localhost:9202**__
+
+Nodo3: __**http://localhost:9203**__
+
+__Nota: da igual a que nodo te conectes o a que nodo apuntes con los logstash o beats empleados, elasticsearch tiene la propiedad de repartir la carga de trabajo automáticamente y con cerebro puedes visualizar como se reparte cada nodo los shards de cada index y sus replicas.
 
 
 ## Problemas:
