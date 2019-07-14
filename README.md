@@ -7,7 +7,7 @@ Cluster en docker compose para iniciar tres nodos y kibana.
 
 Incluye **cerebro** para monitorización interna de shards y réplicas. 
 
-El cluster está dotado de persistencia de datos aunque se paren los contenedores y se eliminen a través de los volúmenes gestionados por la plataforma docker según su archivo docker-compose.yml.
+El cluster está dotado de persistencia de datos, aunque se paren los contenedores y se eliminen. Esto se ha hecho a través de los volúmenes gestionados por la plataforma docker según vemos al final de su archivo docker-compose.yml.
 
 
 ## macOS
