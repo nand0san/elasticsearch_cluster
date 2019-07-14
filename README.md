@@ -76,7 +76,7 @@ Para acceder a cerebro y gestionar el cluster:
 
 _**http://localhost:9000**_
 
-**Nota:** Para que cerebro conecte con el cluster emplear la url: **http://elasticsearch1:9200**
+**Nota:** Para que cerebro conecte con el cluster usa la url: **http://elasticsearch1:9200**
 
 
 
