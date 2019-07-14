@@ -68,11 +68,19 @@ __**docker volume prune -f**__
 
 Podemos acceder al entorno del cluster a través de kibana:
 
-__**http://localhost:9201**__
+Nodo 1: __**http://localhost:9201**__
+
+Nodo 2: __**http://localhost:9202**__
+
+Nodo3: __**http://localhost:9203**__
+
+__Nota: da igual a que nodo te conectes o a que nodo apuntes con los logstash o beats empleados, elasticsearch tiene la propiedad de repartir la carga de trabajo automáticamente y con cerebro puedes visualizar como se reparte cada nodo los shards de cada index y sus replicas.
 
 Para acceder a cerebro y gestionar el cluster:
 
 __**http://localhost:9000**__
+
+__Nota: Para que cerebro conecte con el cluster emplear la url: **http://elasticsearch1:9200**__
 
 
 ## Para ingestión de datos:
