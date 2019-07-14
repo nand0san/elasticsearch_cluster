@@ -1,4 +1,3 @@
-#sacado de las slides del curso
 version: '2'
 
 services:
@@ -7,7 +6,7 @@ services:
     container_name: elasticsearch_workshop_1
     environment:
       - "cluster.name=elasticsearch_cluster"    #sets cluster name
-      - "node.name=elasticsearch1"               #sets node name
+      - "node.name=elasticsearch1"              #sets node name
       - "network.host=0.0.0.0"                  #sets binding ip to all
       - "xpack.security.enabled=false"          #disabes xpack security
       - "xpack.monitoring.enabled=false"        #disabes xpack monitorng
@@ -23,7 +22,6 @@ services:
         hard: -1
     volumes:
       - es_data1:/usr/share/elasticsearch/data
-#      - /home/moloch/Escritorio/datos_elastic/elasticsearch_workshop_1:/usr/share/elasticsearch/data
     ports:
       - "9201:9200"    
       - "9301:9300"
@@ -51,7 +49,6 @@ services:
         hard: -1
     volumes:
       - es_data2:/usr/share/elasticsearch/data
-#      - /home/moloch/Escritorio/datos_elastic/elasticsearch_workshop_2:/usr/share/elasticsearch/data
     ports:
       - "9202:9200"    
       - "9302:9300"
@@ -79,7 +76,6 @@ services:
         hard: -1
     volumes:
       - es_data3:/usr/share/elasticsearch/data
-#      - /home/moloch/Escritorio/datos_elastic/elasticsearch_workshop_3:/usr/share/elasticsearch/data
     ports:
       - "9203:9200"    
       - "9303:9300"
@@ -109,7 +105,7 @@ services:
 #    networks:
 #      - red_docker
     environment:
-      ELASTICSEARCH_URL: http://elasticsearch1:9201
+      ELASTICSEARCH_URL: http://elasticsearch:9200
 
 #networks:
 #    red_docker:
