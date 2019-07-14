@@ -44,7 +44,7 @@ portatil con 16gb de ram procesador i7
 
 **Inicar el cluster** en modo detached (la primera vez puede tardar en arrancar kibana varios minutos):
 
-**docker-compose up -d
+_**docker-compose up -d**_
 
 Iniciar el cluster por stout para ver posibles errores:  
 
