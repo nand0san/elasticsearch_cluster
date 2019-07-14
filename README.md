@@ -98,8 +98,6 @@ Nodo 3: _**http://localhost:9203**_
 
 ## Problemas:
 
-Al arrancar verás que cerebro da errores hasta que elasticsearch arranca, es normal pues cerebro arranca más rápido.
-
 Si da error de memoria con un mensaje similar a este:
 
 _ERROR: bootstrap checks failed max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]_
