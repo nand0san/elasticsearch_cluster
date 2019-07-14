@@ -46,7 +46,7 @@ portatil con 16gb de ram procesador i7
 
 _**docker-compose up -d**_
 
-Iniciar el cluster por stout para ver posibles errores:  
+Iniciar el cluster por stdout para ver posibles errores:  
 
 _**docker-compose up**_
 
