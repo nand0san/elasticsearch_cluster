@@ -27,7 +27,7 @@ portatil con 16gb de ram procesador i7
 
 -docker compose versión: docker-compose version 1.23.2, build 1110ad01
 
--disk image size: 80 GB
+-disk image size: 80 GB (al gusto)
 
 -4 processors
 
