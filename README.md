@@ -42,7 +42,7 @@ portatil con 16gb de ram procesador i7
 ## Uso básico:
 
 
-Inicar el cluster en modo detached:
+Inicar el cluster en modo detached (la primera vez puede tardar en arrancar kibana varios minutos):
 
 __**docker-compose up -d**__
 
