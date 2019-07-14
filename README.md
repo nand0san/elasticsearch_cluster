@@ -3,9 +3,9 @@
 # Elasticsearch Cluster
 
 
-Cluster en docker compose para iniciar un cluster de tres nodos y kibana. Incluye **cerebro** para monitorización interna de shards y réplicas. 
+Cluster en docker compose para iniciar tres nodos y kibana. Incluye **cerebro** para monitorización interna de shards y réplicas. 
 
-El cluster está dotado de persistencia de datos aunque se paren los contenedores y se eliminen a través de los volúmenes gestionados por docker indicados en su archivo docker-compose.yml.
+El cluster está dotado de persistencia de datos aunque se paren los contenedores y se eliminen a través de los volúmenes gestionados por la plataforma docker según su archivo docker-compose.yml.
 
 
 ## macOS
@@ -33,7 +33,7 @@ portatil con 16gb de ram procesador i7
 
 -swap 1GB (no lo usamos en elasticsearch con este docker-compose.yml)
 
--Versión de elasticsearch 6.5.4
+-Versión de elasticsearch y kibana 6.5.4
 
 
 
