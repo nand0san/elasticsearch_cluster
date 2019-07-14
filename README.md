@@ -48,19 +48,19 @@ _**docker-compose up -d**_
 
 Iniciar el cluster por stout para ver posibles errores:  
 
-**docker-compose up
+_**docker-compose up**_
 
 Detener los servicios:
 
-**docker-compose stop
+_**docker-compose stop**_
 
 Limpieza general de contenedores y redes creadas:
 
-**docker system prune -f
+_**docker system prune -f**_
 
 Eliminación de datos almacenamos del cluster (se puede hacer de manera mas visual accediendo a cerebro):
 
-**docker volume prune -f
+_**docker volume prune -f**_
 
 
 
@@ -70,13 +70,13 @@ Eliminación de datos almacenamos del cluster (se puede hacer de manera mas visu
 
 Podemos acceder al entorno del cluster a través de kibana:
 
-**http://localhost:5601/
+_**http://localhost:5601/**_
 
 Para acceder a cerebro y gestionar el cluster:
 
-**http://localhost:9000
+_**http://localhost:9000**_
 
-**Nota:** Para que cerebro conecte con el cluster emplear la url: **http://elasticsearch1:9200
+**Nota:** Para que cerebro conecte con el cluster emplear la url: **http://elasticsearch1:9200**
 
 
 
@@ -87,11 +87,11 @@ Este cluster no está configurado con ningún agente de ingesta de datos como pu
 
 Configura los agentes beats o logstash (no incluidos en este repositorio) apuntando a los nodos:
 
-Nodo 1: **http://localhost:9201
+Nodo 1: _**http://localhost:9201**_
 
-Nodo 2:m**http://localhost:9202
+Nodo 2: _**http://localhost:9202**_
 
-Nodo 3: **http://localhost:9203
+Nodo 3: _**http://localhost:9203**_
 
 **Nota:** da igual a que nodo hagas una query o a que nodo apuntes con los agentes de logstash o beats, elasticsearch tiene la propiedad de repartir la carga de trabajo automáticamente entre los nodos y se consultan mutuamente. Además si consultas cerebro puedes visualizar como se reparten entre cada nodo los shards de cada index y sus replicas.
 
@@ -101,10 +101,10 @@ Nodo 3: **http://localhost:9203
 
 Si da error de memoria con un mensaje similar a este:
 
-*ERROR: bootstrap checks failed max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]
+_ERROR: bootstrap checks failed max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]_
 
 Hay que ampliar la memoria virtual del host en el que estas lanzando los contenedores al valor que pide, por ejemplo:
 
-**sudo sysctl -w vm.max_map_count=262144
+_**sudo sysctl -w vm.max_map_count=262144**_
 
 
