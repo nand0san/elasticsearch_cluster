@@ -3,7 +3,7 @@
 # Elasticsearch Cluster
 
 
-Cluster en docker compose para iniciar un cluster de tres nodos y kibana con cerebro para monitorización interna de shards y réplicas.
+Cluster en docker compose para iniciar un cluster de tres nodos y kibana con cerebro para monitorización interna de shards y réplicas. El cluster está dotado de persistencia a través de los volúmenes empleados en su archivo docker-compose.yml.
 
 
 ## macOS
@@ -40,13 +40,25 @@ portatil con 16gb de ram procesador i7
 
 Inicar el cluster en modo detached:
 
-**docker-compose up -d**
+__**docker-compose up -d**__
 
 
-Iniciar el cluster por stout:  
+Iniciar el cluster por stout para ver posibles errores:  
 
-**docker-compose up**
+__**docker-compose up**__
 
+
+Detener los servicios:
+
+__**docker-compose stop**__
+
+Limpieza general de contenedores y redes creadas:
+
+__**docker system prune -f**__
+
+Eliminación de datos almacenamos del cluster:
+
+__**docker volume prune -f**__
 
 
 
@@ -57,7 +69,7 @@ Si da error de memoria con un mensaje similar a este:
 
 __ERROR: bootstrap checks failed max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]__
 
-Hay que ampliar la memoria virtual al valor que pide, por ejemplo:
+Hay que ampliar la memoria virtual del host en el que estas lanzando los contenedores al valor que pide, por ejemplo:
 
 __sudo sysctl -w vm.max_map_count=262144__
 
