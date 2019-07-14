@@ -35,7 +35,7 @@ portatil con 16gb de ram procesador i7
 
 
 
-## Uso:
+## Uso básico:
 
 
 Inicar el cluster en modo detached:
@@ -60,6 +60,17 @@ Eliminación de datos almacenamos del cluster:
 
 __**docker volume prune -f**__
 
+
+## Visualización de datos:
+
+
+Podemos acceder al entorno del cluster a través de kibana:
+
+__**http://localhost:9201**__
+
+Para acceder a cerebro y gestionar el cluster:
+
+__**http://localhost:9000**__
 
 
 ## Problemas:
