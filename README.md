@@ -3,7 +3,9 @@
 # Elasticsearch Cluster
 
 
-Cluster en docker compose para iniciar un cluster de tres nodos y kibana con cerebro para monitorización interna de shards y réplicas. El cluster está dotado de persistencia a través de los volúmenes empleados en su archivo docker-compose.yml.
+Cluster en docker compose para iniciar un cluster de tres nodos y kibana. Incluye **cerebro** para monitorización interna de shards y réplicas. 
+
+El cluster está dotado de persistencia de datos aunque se paren los contenedores y se eliminen a través de los volúmenes gestionados por docker indicados en su archivo docker-compose.yml.
 
 
 ## macOS
@@ -71,6 +73,11 @@ __**http://localhost:9201**__
 Para acceder a cerebro y gestionar el cluster:
 
 __**http://localhost:9000**__
+
+
+## Para ingestión de datos:
+
+Este cluster no está configurado con ningún gestor de ingesta de datos como pudiera ser Beats o Logstash.
 
 
 ## Problemas:
