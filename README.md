@@ -44,23 +44,23 @@ portatil con 16gb de ram procesador i7
 
 **Inicar el cluster** en modo detached (la primera vez puede tardar en arrancar kibana varios minutos):
 
-**docker-compose up -d**
+_**docker-compose up -d
 
 Iniciar el cluster por stout para ver posibles errores:  
 
-**docker-compose up**
+_**docker-compose up
 
 Detener los servicios:
 
-**docker-compose stop**
+_**docker-compose stop
 
 Limpieza general de contenedores y redes creadas:
 
-**docker system prune -f**
+_**docker system prune -f
 
 Eliminación de datos almacenamos del cluster (se puede hacer de manera mas visual accediendo a cerebro):
 
-**docker volume prune -f**
+_**docker volume prune -f
 
 
 
@@ -70,13 +70,13 @@ Eliminación de datos almacenamos del cluster (se puede hacer de manera mas visu
 
 Podemos acceder al entorno del cluster a través de kibana:
 
-**http://localhost:5601/**
+_**http://localhost:5601/
 
 Para acceder a cerebro y gestionar el cluster:
 
-**http://localhost:9000**
+_**http://localhost:9000
 
-**Nota:** Para que cerebro conecte con el cluster emplear la url: **http://elasticsearch1:9200**
+**Nota:** Para que cerebro conecte con el cluster emplear la url: **http://elasticsearch1:9200
 
 
 
@@ -87,13 +87,13 @@ Este cluster no está configurado con ningún agente de ingesta de datos como pu
 
 Configura los agentes beats o logstash (no incluidos en este repositorio) apuntando a los nodos:
 
-Nodo 1: __**http://localhost:9201**__
+_Nodo 1: __**http://localhost:9201
 
-Nodo 2: __**http://localhost:9202**__
+_Nodo 2: __**http://localhost:9202
 
-Nodo3: __**http://localhost:9203**__
+_Nodo 3: __**http://localhost:9203
 
-__Nota: da igual a que nodo te conectes o a que nodo apuntes con los logstash o beats empleados, elasticsearch tiene la propiedad de repartir la carga de trabajo automáticamente y con cerebro puedes visualizar como se reparte cada nodo los shards de cada index y sus replicas.
+_**Nota:** da igual a que nodo hagas una query o a que nodo apuntes con los agentes de logstash o beats, elasticsearch tiene la propiedad de repartir la carga de trabajo automáticamente entre los nodos y se consultan mutuamente. Además si consultas cerebro puedes visualizar como se reparten entre cada nodo los shards de cada index y sus replicas.
 
 
 ## Problemas:
@@ -101,10 +101,10 @@ __Nota: da igual a que nodo te conectes o a que nodo apuntes con los logstash o 
 
 Si da error de memoria con un mensaje similar a este:
 
-__ERROR: bootstrap checks failed max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]__
+_ERROR: bootstrap checks failed max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]
 
 Hay que ampliar la memoria virtual del host en el que estas lanzando los contenedores al valor que pide, por ejemplo:
 
-__sudo sysctl -w vm.max_map_count=262144__
+_**sudo sysctl -w vm.max_map_count=262144
 
 
