@@ -48,19 +48,19 @@ portatil con 16gb de ram procesador i7
 
 Iniciar el cluster por stout para ver posibles errores:  
 
-_*docker-compose up
+**docker-compose up
 
 Detener los servicios:
 
-_**docker-compose stop
+**docker-compose stop
 
 Limpieza general de contenedores y redes creadas:
 
-_**docker system prune -f
+**docker system prune -f
 
 Eliminación de datos almacenamos del cluster (se puede hacer de manera mas visual accediendo a cerebro):
 
-_**docker volume prune -f
+**docker volume prune -f
 
 
 
@@ -70,11 +70,11 @@ _**docker volume prune -f
 
 Podemos acceder al entorno del cluster a través de kibana:
 
-_**http://localhost:5601/
+**http://localhost:5601/
 
 Para acceder a cerebro y gestionar el cluster:
 
-_**http://localhost:9000
+**http://localhost:9000
 
 **Nota:** Para que cerebro conecte con el cluster emplear la url: **http://elasticsearch1:9200
 
@@ -87,13 +87,13 @@ Este cluster no está configurado con ningún agente de ingesta de datos como pu
 
 Configura los agentes beats o logstash (no incluidos en este repositorio) apuntando a los nodos:
 
-_Nodo 1: __**http://localhost:9201
+Nodo 1: **http://localhost:9201
 
-_Nodo 2: __**http://localhost:9202
+Nodo 2:m**http://localhost:9202
 
-_Nodo 3: __**http://localhost:9203
+Nodo 3: **http://localhost:9203
 
-_**Nota:** da igual a que nodo hagas una query o a que nodo apuntes con los agentes de logstash o beats, elasticsearch tiene la propiedad de repartir la carga de trabajo automáticamente entre los nodos y se consultan mutuamente. Además si consultas cerebro puedes visualizar como se reparten entre cada nodo los shards de cada index y sus replicas.
+**Nota:** da igual a que nodo hagas una query o a que nodo apuntes con los agentes de logstash o beats, elasticsearch tiene la propiedad de repartir la carga de trabajo automáticamente entre los nodos y se consultan mutuamente. Además si consultas cerebro puedes visualizar como se reparten entre cada nodo los shards de cada index y sus replicas.
 
 
 ## Problemas:
@@ -101,10 +101,10 @@ _**Nota:** da igual a que nodo hagas una query o a que nodo apuntes con los agen
 
 Si da error de memoria con un mensaje similar a este:
 
-_ERROR: bootstrap checks failed max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]
+*ERROR: bootstrap checks failed max virtual memory areas vm.max_map_count [65530] likely too low, increase to at least [262144]
 
 Hay que ampliar la memoria virtual del host en el que estas lanzando los contenedores al valor que pide, por ejemplo:
 
-_**sudo sysctl -w vm.max_map_count=262144
+**sudo sysctl -w vm.max_map_count=262144
 
 
