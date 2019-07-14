@@ -42,27 +42,27 @@ portatil con 16gb de ram procesador i7
 ## Uso básico:
 
 
-Inicar el cluster en modo detached (la primera vez puede tardar en arrancar kibana varios minutos):
+**Inicar el cluster** en modo detached (la primera vez puede tardar en arrancar kibana varios minutos):
 
-__**docker-compose up -d**__
-
+**docker-compose up -d**
 
 Iniciar el cluster por stout para ver posibles errores:  
 
-__**docker-compose up**__
-
+**docker-compose up**
 
 Detener los servicios:
 
-__**docker-compose stop**__
+**docker-compose stop**
 
 Limpieza general de contenedores y redes creadas:
 
-__**docker system prune -f**__
+**docker system prune -f**
 
 Eliminación de datos almacenamos del cluster (se puede hacer de manera mas visual accediendo a cerebro):
 
-__**docker volume prune -f**__
+**docker volume prune -f**
+
+
 
 
 ## Visualización de datos:
@@ -70,13 +70,15 @@ __**docker volume prune -f**__
 
 Podemos acceder al entorno del cluster a través de kibana:
 
-__**http://localhost:5601/**__
+**http://localhost:5601/**
 
 Para acceder a cerebro y gestionar el cluster:
 
-__**http://localhost:9000**__
+**http://localhost:9000**
 
-__Nota: Para que cerebro conecte con el cluster emplear la url: **http://elasticsearch1:9200**__
+**Nota:** Para que cerebro conecte con el cluster emplear la url: **http://elasticsearch1:9200**
+
+
 
 
 ## Para ingestión de datos:
