@@ -3,9 +3,9 @@
 # Elasticsearch Cluster
 
 
-Cluster en docker compose para iniciar tres nodos y kibana. 
+Cluster en docker compose para iniciar tres nodos y kibana.
 
-Incluye **cerebro** para monitorización interna de shards y réplicas. 
+Incluye **cerebro** para monitorización interna de shards y réplicas.
 
 El cluster está dotado de persistencia de datos, aunque se paren los contenedores y se eliminen. Esto se ha hecho a través de los volúmenes gestionados por la plataforma docker según vemos al final de su archivo docker-compose.yml.
 
@@ -50,6 +50,14 @@ Iniciar el cluster por stdout para ver posibles errores:
 
 _**docker-compose up**_
 
+Si hay errores que requieren más atención, puedes mirarlos viendo el ID de los contenedores con el comando:
+
+_**docker ps**_
+
+Con el ID del contenedor puedes ver sus logs a fondo:
+
+_**docker logs 32423413123**_
+
 Detener los servicios:
 
 _**docker-compose stop**_
@@ -83,9 +91,13 @@ _**http://localhost:9000**_
 
 ## Para ingestión de datos:
 
-Este cluster no está configurado con ningún agente de ingesta de datos como pudiera ser Beats o Logstash.
+Este cluster está siendo configurado con *filebeat* y *logstash* para autoparsear csv. Las configuraciones por defecto admiten logs en csv separados por comas con línea e cabecera. No está previsto multilinea.
 
-Configura los agentes beats o logstash (no incluidos en este repositorio) apuntando a los nodos:
+Se pueden analizar varios csv, pero del mismo formato de columnas, para analizar diversos tipos de csv habría que construir un filtro grok a medida en el archivo logstash.conf con la documentacion oficial.
+
+Ayuda: https://grokconstructor.appspot.com/
+
+Configura los agentes beats o logstash de otros host o externos apuntando a los nodos:
 
 Nodo 1: _**http://localhost:9201**_
 
@@ -105,5 +117,3 @@ _ERROR: bootstrap checks failed max virtual memory areas vm.max_map_count [65530
 Hay que ampliar la memoria virtual del host en el que estas lanzando los contenedores al valor que pide, por ejemplo:
 
 _**sudo sysctl -w vm.max_map_count=262144**_
-
-
