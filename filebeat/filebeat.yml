@@ -1,0 +1,9 @@
+filebeat.inputs:
+  - type: log
+    paths:
+      - "/csv_to_parse/dns/*.csv"
+      - "/csv_to_parse/proxy_nav/*.csv"
+      - "/csv_to_parse/test/*.csv"
+
+output.logstash:
+    hosts: ["logstash:5044"]

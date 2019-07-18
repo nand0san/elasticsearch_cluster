@@ -31,7 +31,7 @@ portatil con 16gb de ram procesador i7
 
 -4 processors
 
--RAM memory: 10GB
+-RAM memory: 12GB
 
 -swap 1GB (no lo usamos en elasticsearch con este docker-compose.yml)
 

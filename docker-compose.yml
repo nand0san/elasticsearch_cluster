@@ -25,8 +25,9 @@ services:
     ports:
       - "9201:9200"    
       - "9301:9300"
-#    networks:
-#      - red_docker
+    networks:
+      cluster_net:
+        ipv4_address: 10.0.0.1
 
   elasticsearch_workshop_2:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
@@ -52,8 +53,9 @@ services:
     ports:
       - "9202:9200"    
       - "9302:9300"
-#    networks:
-#      - red_docker
+    networks:
+      cluster_net:
+        ipv4_address: 10.0.0.2
 
   elasticsearch_workshop_3:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
@@ -79,10 +81,11 @@ services:
     ports:
       - "9203:9200"    
       - "9303:9300"
-#    networks:
-#      - red_docker
+    networks:
+      cluster_net:
+        ipv4_address: 10.0.0.3
 
-
+# index and cluster manager
   cerebro:
     image: yannart/cerebro:0.8.1
     container_name: cerebro_workshop
@@ -96,8 +99,11 @@ services:
       - elasticsearch_workshop_1:elasticsearch1
       - elasticsearch_workshop_2:elasticsearch2
       - elasticsearch_workshop_3:elasticsearch3
-#    networks:
-#      - red_docker
+      - logstash_workshop:logstash
+
+    networks:
+      cluster_net:
+        ipv4_address: 10.0.0.50
 
 
   kibana:
@@ -107,15 +113,70 @@ services:
       - "5601:5601"
     external_links:
       - elasticsearch_workshop_1:elasticsearch1
-#    networks:
-#      - red_docker
+    networks:
+      cluster_net:
+        ipv4_address: 10.0.0.100
     environment:
       ELASTICSEARCH_URL: http://elasticsearch1:9200
 
-#networks:
-#    red_docker:
+# Logstash csv ingest
+  logstash:
+    image: docker.elastic.co/logstash/logstash:6.5.4
+    container_name: logstash_workshop
+    depends_on:
+      - elasticsearch_workshop_1
+      - elasticsearch_workshop_2
+      - elasticsearch_workshop_3
+    restart: unless-stopped
+    ports:
+      - "5044:5044"
+    external_links:
+      - elasticsearch_workshop_1:elasticsearch1
+      - elasticsearch_workshop_2:elasticsearch2
+      - elasticsearch_workshop_3:elasticsearch3
+      - logstash_workshop:logstash
+      - kibana_workshop:kibana
+    volumes:
+      #- "./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml:ro"     # uncomment for accesible logstash.yml settings
+      - "./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro"
+      #- "logstash_data:/usr/share/logstash/data"                                 # uncomment for logstash data persistence
+      #- "./csv_to_parse:/csv_to_parse:ro"
+    networks:
+      cluster_net:
+        ipv4_address: 10.0.0.150
+
+# filebeat for future developments
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:6.5.4
+    container_name: filebeat_workshop
+    depends_on:
+      - logstash
+    restart: unless-stopped
+    external_links:
+      - elasticsearch_workshop_1:elasticsearch1
+      - elasticsearch_workshop_2:elasticsearch2
+      - elasticsearch_workshop_3:elasticsearch3
+      - logstash_workshop:logstash
+    volumes:
+      - "./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro"
+      #- "filebeat_data:/usr/share/filebeat/data/"                                 # uncomment for filebeat registry persistence
+      - "./csv_to_parse:/csv_to_parse:ro"
+
+    networks:
+      cluster_net:
+        ipv4_address: 10.0.0.200
+
+networks:
+    cluster_net:
+      driver: bridge
+      ipam:
+        config:
+          - subnet: 10.0.0.0/24
+            gateway: 10.0.0.254
 
 volumes:
     es_data1:
     es_data2:
     es_data3:
+    logstash_data:
+    filebeat_data:
