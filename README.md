@@ -91,7 +91,7 @@ _**http://localhost:9000**_
 
 ## Para ingestión de datos:
 
-Este cluster está siendo configurado con *filebeat* y *logstash* para autoparsear csv. Las configuraciones por defecto admiten logs en csv separados por comas con línea de cabecera. No está previsto multilinea.
+Este cluster se está configurado con *filebeat* y *logstash* para autoparsear csv. Las configuraciones por defecto admiten logs en csv separados por comas con línea de cabecera. No está previsto multilinea.
 
 Para parsear los logs csv, introducelos en la carpeta "csvtoparse" con las extension csv.
 
