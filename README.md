@@ -50,11 +50,11 @@ Iniciar el cluster por stdout para ver posibles errores:
 
 _**docker-compose up**_
 
-Si hay errores que requieren más atención, puedes mirarlos viendo el ID de los contenedores con el comando:
+Si hay errores que requieren más atención, puedes mirarlos viendo el ID de los contenedores para luego ver sus logs, primero con el comando:
 
 _**docker ps**_
 
-Con el ID del contenedor puedes ver sus logs a fondo:
+Después, con el ID del contenedor puedes ver sus logs a fondo:
 
 _**docker logs 32423413123**_
 
