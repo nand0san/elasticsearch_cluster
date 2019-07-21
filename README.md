@@ -56,7 +56,7 @@ _**docker ps**_
 
 Con el ID del contenedor puedes ver sus logs a fondo:
 
-_**docker logs 32423413123**_
+_**docker logs dec6afdc666f**_
 
 También hay un script de limpieza para agilizar las pruebas, usa _bash stop.sh_ o usa por separado:
 
@@ -91,11 +91,15 @@ _**http://localhost:9000**_
 
 ## Para ingestión de datos:
 
-Este cluster se está configurado con *filebeat* y *logstash* para autoparsear csv. Las configuraciones por defecto admiten logs en csv separados por comas con línea de cabecera. No está previsto multilinea.
+Este cluster está configurado con *filebeat* y *logstash* para autoparsear csv. 
 
-Para parsear los logs csv, introducelos en la carpeta "csvtoparse" con las extension csv.
+Las configuraciones por defecto admiten logs en csv separados por comas con línea de cabecera. No está previsto multilinea.
 
-Se pueden analizar varios csv, pero del mismo formato de columnas, para analizar diversos tipos de csv habría que construir un filtro grok a medida en el archivo logstash.conf con la documentacion oficial.
+Para parsear los logs csv, introducelos en la carpeta "csvtoparse" con la extension csv.
+
+Se pueden analizar varios csv creando un index diferente por cada archivo csv analizado.
+
+Para analizar con mas exactitud diversos tipos de csv habría que construir un filtro grok a medida en el archivo logstash.conf con la documentacion oficial.
 
 Ayuda: https://grokconstructor.appspot.com/
 
