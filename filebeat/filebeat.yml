@@ -1,12 +1,28 @@
 filebeat.inputs:
   - type: log
     paths:
-      - "/csvtoparse/*.csv"
-#      - "/csvtoparse/*.csv"
+      - "/csvtoparse/dns/*.csv"
+    fields: {log_type: dns}
+    enabled: true
+    fields_under_root: true
+    reload.enabled: true
+    reload.period: 10s
+
+  - type: log
+    paths:
+      - "/csvtoparse/proxy/*.csv"
+    fields: {log_type: proxy}
+    enabled: true
+    fields_under_root: true
+    reload.enabled: true
+    reload.period: 10s
+
+#    setup.template.settings:
+#      index.number_of_shards: 3
 #      - "/csvtoparse/*.csv"
     # fields:
     #   csv_file: prueba
-    # fieldas_under_root: true
+    # fields_under_root: true
 
 output.logstash:
     hosts: ["logstash:5044"]

@@ -129,7 +129,7 @@ services:
       - "xpack.watcher.enabled=false"           #disabes xpack watcher
       - "xpack.ml.enabled=false"                #disabes xpack ml
       - "bootstrap.memory_lock=true"            #disables memory swap
-#      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"      #sets allocated memory
+      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"      #sets allocated memory
     depends_on:
       - elasticsearch_workshop_1
       - elasticsearch_workshop_2
