@@ -20,6 +20,15 @@ mojave 10.14.5
 
 portatil con 16gb de ram procesador i7
 
+## Ubuntu 18.04
+
+Testado en Ubuntu.
+
+Distributor ID:	Ubuntu
+Description:	Ubuntu 18.04.2 LTS
+Release:	18.04
+Codename:	bionic
+
 
 ## Requerimientos:
 
