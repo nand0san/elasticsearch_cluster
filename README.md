@@ -15,9 +15,7 @@ El cluster está dotado de persistencia de datos, aunque se paren los contenedor
 Testado en una máquina MacBook:
 
 **uname -a**: Darwin MacBook-Pro.local 18.6.0 Darwin Kernel Version 18.6.0: Thu Apr 25 23:16:27 PDT 2019; root:xnu-4903.261.4~2/RELEASE_X86_64 x86_64
-
 mojave 10.14.5
-
 portatil con 16gb de ram procesador i7
 
 ## Ubuntu 18.04
