@@ -17,14 +17,14 @@ filebeat.inputs:
     reload.enabled: true
     reload.period: 10s
 
-    # - type: log
-    # paths:
-    #   - "/csvtoparse/*.csv"
-    # fields: {log_type: csvlog}
-    # enabled: true
-    # fields_under_root: true
-    # reload.enabled: true
-    # reload.period: 10s
+  - type: log
+    paths:
+        - "/csvtoparse/*.csv"
+    fields: {log_type: csvlog}
+    enabled: true
+    fields_under_root: true
+    reload.enabled: true
+    reload.period: 10s
 
 #    setup.template.settings:
 #      index.number_of_shards: 3
