@@ -102,7 +102,29 @@ Este cluster está configurado con *filebeat* y *logstash* para autoparsear csv.
 
 Las configuraciones por defecto admiten logs en csv separados por comas con línea de cabecera. No está previsto multilinea.
 
-Para parsear los logs csv, introducelos en la carpeta "csvtoparse" con la extension csv.
+Para parsear los logs csv, introducelos en la carpeta _**csvtoparse**_ con la extension csv. 
+
+En el archivo de configuración de logstash y de filebeat, se etiquetan los csv por la subcarpeta en la que se encuentren dentro de la carpeta "csvtoparse", en concreto, si estań en la carpeta dns o proxy, aplicará un parseo diferente conforme a las columnas que yo utilizo y que a mi me convienen, de esa manera, dependiendo de la estructura de columnas que tenga el csv, lo dejas en una subcarpeta u otra y así puedes crear parseos diferentes en funcion de en que subcarpeta los encuentra filebeat.
+
+Por otro lado, los csv que se encuentren directamente en la carpeta _**csvtoparse**_ serán analizados con la función autoparse.
+
+Los filtros preconfigurados en logstash.conf incluyen la opción de parsear por fechas procedentes de una columna llamada fec_operacion en lugar de **@timestamp**, que es la fecha de ingesta por elasticshearch:
+
+``` mutate {
+      gsub => [ 'message', '\"', '' ]
+    }
+    csv {
+      separator => ","
+      autodetect_column_names => true
+      autogenerate_column_names => true        # use only if csv file has some no titled columns
+      skip_header => false
+    }
+    date {
+      match => [ "fec_operacion", "yyyy-MM-dd' 'HH:mm:ss'.'SSSSSSSSS" ]
+      target => "fec_operacion"
+    }
+  }
+```
 
 Se pueden analizar varios csv creando un index diferente por cada archivo csv analizado.
 
