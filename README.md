@@ -122,10 +122,10 @@ Los filtros preconfigurados en logstash.conf incluyen la opción de parsear por 
       autogenerate_column_names => true        # use only if csv file has some no titled columns
       skip_header => false
     }
-_**  date {
+    date {
       match => [ "fec_operacion", "yyyy-MM-dd' 'HH:mm:ss'.'SSSSSSSSS" ]
       target => "fec_operacion"
-    }**_
+    }
   }
 ```
 
