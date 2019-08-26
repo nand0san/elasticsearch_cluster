@@ -23,7 +23,7 @@ services:
     volumes:
       - es_data1:/usr/share/elasticsearch/data
     ports:
-      - "9201:9200"
+      - "9200:9200"
       - "9301:9300"
     networks:
       cluster_net:
