@@ -110,7 +110,8 @@ Por otro lado, los csv que se encuentren directamente en la carpeta _**csvtopars
 
 Los filtros preconfigurados en logstash.conf incluyen la opción de parsear por fechas procedentes de una columna llamada fec_operacion en lugar de **@timestamp**, que es la fecha de ingesta por elasticshearch:
 
-``` mutate {
+``` 
+  mutate {
       gsub => [ 'message', '\"', '' ]
     }
     csv {
