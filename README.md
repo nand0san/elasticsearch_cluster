@@ -102,7 +102,7 @@ Este cluster está configurado con *filebeat* y *logstash* para autoparsear csv.
 
 Las configuraciones por defecto admiten logs en csv separados por comas con línea de cabecera. No está previsto multilinea.
 
-Para parsear los logs csv, crea una carpeta llamada _**csvtoparse**_ en la raiz del proyecto e introduce los logs en la carpeta con la extension csv. 
+Para parsear los logs csv, crea una carpeta llamada _**csvtoparse**_ en la raiz del proyecto e introduce los logs en la carpeta, verifica que tienen la extension csv. 
 
 En el archivo de configuración de logstash y de filebeat, se etiquetan los csv en función de la subcarpeta en la que se encuentren dentro de _**"csvtoparse"**_, en concreto, si estań en la carpeta dns o proxy, aplicará un parseo diferente conforme a las columnas que yo utilizo y que a mi me convienen.
 
@@ -122,10 +122,10 @@ Los filtros preconfigurados en logstash.conf incluyen la opción de parsear por 
       autogenerate_column_names => true        # use only if csv file has some no titled columns
       skip_header => false
     }
-    date {
+_**  date {
       match => [ "fec_operacion", "yyyy-MM-dd' 'HH:mm:ss'.'SSSSSSSSS" ]
       target => "fec_operacion"
-    }
+    }**_
   }
 ```
 
