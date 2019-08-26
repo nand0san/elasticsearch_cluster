@@ -102,13 +102,15 @@ Este cluster está configurado con *filebeat* y *logstash* para autoparsear csv.
 
 Las configuraciones por defecto admiten logs en csv separados por comas con línea de cabecera. No está previsto multilinea.
 
-Para parsear los logs csv, introducelos en la carpeta _**csvtoparse**_ con la extension csv. 
+Para parsear los logs csv, crea una carpeta llamada _**csvtoparse**_ en la raiz del proyecto e introduce los logs en la carpeta con la extension csv. 
 
-En el archivo de configuración de logstash y de filebeat, se etiquetan los csv por la subcarpeta en la que se encuentren dentro de la carpeta "csvtoparse", en concreto, si estań en la carpeta dns o proxy, aplicará un parseo diferente conforme a las columnas que yo utilizo y que a mi me convienen, de esa manera, dependiendo de la estructura de columnas que tenga el csv, lo dejas en una subcarpeta u otra y así puedes crear parseos diferentes en funcion de en que subcarpeta los encuentra filebeat.
+En el archivo de configuración de logstash y de filebeat, se etiquetan los csv en función de la subcarpeta en la que se encuentren dentro de _**"csvtoparse"**_, en concreto, si estań en la carpeta dns o proxy, aplicará un parseo diferente conforme a las columnas que yo utilizo y que a mi me convienen.
+
+De esta manera, dependiendo de la estructura de columnas que tenga el csv, lo dejas en una subcarpeta u otra y así puedes crear parseos diferentes en funcion de en que subcarpeta los encuentra filebeat.
 
 Por otro lado, los csv que se encuentren directamente en la carpeta _**csvtoparse**_ serán analizados con la función autoparse.
 
-Los filtros preconfigurados en logstash.conf incluyen la opción de parsear por fechas procedentes de una columna llamada fec_operacion en lugar de **@timestamp**, que es la fecha de ingesta por elasticshearch:
+Los filtros preconfigurados en logstash.conf incluyen la opción de parsear por fechas procedentes de una columna llamada fec_operacion en lugar de **@timestamp**, que es la fecha de ingesta por elasticshearch, así no se pierde la fecha real del evento. A continuación pongo un extracto de la configuración para que puedas ver como lo parseo:
 
 ``` 
   mutate {
@@ -127,9 +129,9 @@ Los filtros preconfigurados en logstash.conf incluyen la opción de parsear por 
   }
 ```
 
-Se pueden analizar varios csv creando un index diferente por cada archivo csv analizado.
+La configuración actual te va a crear un index diferente por cada archivo csv analizado, pero con nombre estructurado de tal manera que puedas agrupar todo en un solo index si quieres.
 
-Para analizar con mas exactitud diversos tipos de csv habría que construir un filtro grok a medida en el archivo logstash.conf con la documentacion oficial.
+Para analizar con mas exactitud diversos tipos de csv habría que construir un filtro grok a medida de cada csv en el archivo logstash.conf utilizando la documentacion oficial.
 
 Ayuda: https://grokconstructor.appspot.com/
 
