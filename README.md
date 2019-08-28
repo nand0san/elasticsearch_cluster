@@ -145,6 +145,9 @@ Nodo 3: _**http://localhost:9203**_
 
 **Nota:** da igual a que nodo hagas una query o a que nodo apuntes con los agentes de logstash o beats, elasticsearch tiene la propiedad de repartir la carga de trabajo automáticamente entre los nodos y se consultan mutuamente. Además si consultas cerebro puedes visualizar como se reparten entre cada nodo los shards de cada index y sus replicas.
 
+## Para exportación de datos:
+
+En la ventana de kibana (_**http://localhost:5601**_), una vez que hayas aplicado los filtros de búsqueda e intervalos de tiempo, debes guardar ese estado de búsqueda para poderlo exportar después, se hace pulsando "Save" en la parte superior de "Discover". Una vez que lo has guardado pulsa "Share" en la parte superior del apartado "Discover", observarás que aparece "CSV reports" para poder exportar las búsquedas guardadas anteriormente.
 
 ## Problemas:
 

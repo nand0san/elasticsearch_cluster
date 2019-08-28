@@ -1,4 +1,5 @@
 filebeat.inputs:
+
   - type: log
     paths:
       - "/csvtoparse/dns/*.csv"
@@ -6,7 +7,7 @@ filebeat.inputs:
     enabled: true
     fields_under_root: true
     reload.enabled: true
-    reload.period: 10s
+    reload.period: 60s
 
   - type: log
     paths:
@@ -15,23 +16,28 @@ filebeat.inputs:
     enabled: true
     fields_under_root: true
     reload.enabled: true
-    reload.period: 10s
+    reload.period: 60s
 
   - type: log
     paths:
-        - "/csvtoparse/*.csv"
+      - "/csvtoparse/dcwindows/*.csv"
+    fields: {log_type: dc}
+    enabled: true
+    fields_under_root: true
+    reload.enabled: true
+    reload.period: 60s
+
+  - type: log
+    paths:
+      - "/csvtoparse/*.csv"
     fields: {log_type: csvlog}
     enabled: true
     fields_under_root: true
     reload.enabled: true
-    reload.period: 10s
+    reload.period: 60s
 
-#    setup.template.settings:
-#      index.number_of_shards: 3
-#      - "/csvtoparse/*.csv"
-    # fields:
-    #   csv_file: prueba
-    # fields_under_root: true
+#setup.template.settings:
+#    index.number_of_shards: 3
 
 output.logstash:
     hosts: ["logstash:5044"]
