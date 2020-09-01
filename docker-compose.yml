@@ -1,190 +1,57 @@
-version: '2'
+version: '3.5'
 
 services:
-  elasticsearch_workshop_1:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
-    container_name: elasticsearch_workshop_1
+  elasticsearch:
+    image: elasticsearch_arm64
+    container_name: elasticsearch
     environment:
-      - "cluster.name=elasticsearch_cluster"    #sets cluster name
-      - "node.name=elasticsearch1"              #sets node name
-      - "network.host=0.0.0.0"                  #sets binding ip to all
-      - "xpack.security.enabled=false"          #disabes xpack security
-      - "xpack.monitoring.enabled=false"        #disabes xpack monitorng
-      - "xpack.watcher.enabled=false"           #disabes xpack watcher
-      - "xpack.ml.enabled=false"                #disabes xpack ml
-      - "bootstrap.memory_lock=true"            #disables memory swap
-      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"      #sets allocated memory
-      - "discovery.zen.ping.unicast.hosts=elasticsearch_workshop_1,elasticsearch_workshop_2,elasticsearch_workshop_3"
-      - "discovery.zen.minimum_master_nodes=2"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
     volumes:
-      - es_data1:/usr/share/elasticsearch/data
+      #- es_data:/usr/share/elasticsearch/data  # persist data
+      - "./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro"
+    restart: unless-stopped
     ports:
       - "9200:9200"
-      - "9301:9300"
+      - "9300:9300"
     networks:
       cluster_net:
-        ipv4_address: 10.0.0.1
-
-  elasticsearch_workshop_2:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
-    container_name: elasticsearch_workshop_2
-    environment:
-      - "cluster.name=elasticsearch_cluster"    #sets cluster name
-      - "node.name=elasticsearch2"               #sets node name
-      - "network.host=0.0.0.0"                  #sets binding ip to all
-      - "xpack.security.enabled=false"          #disabes xpack security
-      - "xpack.monitoring.enabled=false"        #disabes xpack monitorng
-      - "xpack.watcher.enabled=false"           #disabes xpack watcher
-      - "xpack.ml.enabled=false"                #disabes xpack ml
-      - "bootstrap.memory_lock=true"            #disables memory swap
-      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"      #sets allocated memory
-      - "discovery.zen.ping.unicast.hosts=elasticsearch_workshop_1,elasticsearch_workshop_2,elasticsearch_workshop_3"
-      - "discovery.zen.minimum_master_nodes=2"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - es_data2:/usr/share/elasticsearch/data
-    ports:
-      - "9202:9200"
-      - "9302:9300"
-    networks:
-      cluster_net:
-        ipv4_address: 10.0.0.2
-
-  elasticsearch_workshop_3:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.5.4
-    container_name: elasticsearch_workshop_3
-    environment:
-      - "cluster.name=elasticsearch_cluster"    #sets cluster name
-      - "node.name=elasticsearch3"               #sets node name
-      - "network.host=0.0.0.0"                  #sets binding ip to all
-      - "xpack.security.enabled=false"          #disabes xpack security
-      - "xpack.monitoring.enabled=false"        #disabes xpack monitorng
-      - "xpack.watcher.enabled=false"           #disabes xpack watcher
-      - "xpack.ml.enabled=false"                #disabes xpack ml
-      - "bootstrap.memory_lock=true"            #disables memory swap
-      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"      #sets allocated memory
-      - "discovery.zen.ping.unicast.hosts=elasticsearch_workshop_1,elasticsearch_workshop_2,elasticsearch_workshop_3"
-      - "discovery.zen.minimum_master_nodes=2"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - es_data3:/usr/share/elasticsearch/data
-    ports:
-      - "9203:9200"
-      - "9303:9300"
-    networks:
-      cluster_net:
-        ipv4_address: 10.0.0.3
-
-# index and cluster manager
-  cerebro:
-    image: yannart/cerebro:0.8.1
-    container_name: cerebro_workshop
-    ports:
-      - "9000:9000"
-    depends_on:
-      - elasticsearch_workshop_1
-      - elasticsearch_workshop_2
-      - elasticsearch_workshop_3
-    external_links:
-      - elasticsearch_workshop_1:elasticsearch1
-      - elasticsearch_workshop_2:elasticsearch2
-      - elasticsearch_workshop_3:elasticsearch3
-      - logstash_workshop:logstash
-    networks:
-      cluster_net:
-        ipv4_address: 10.0.0.50
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:6.5.4
-    container_name: kibana_workshop
+    image: kibana_arm64
+    container_name: kibana
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
     ports:
       - "5601:5601"
-    external_links:
-      - elasticsearch_workshop_1:elasticsearch1
+    volumes:
+      - "./kibana/config/:/usr/share/kibana/config:ro"
     networks:
       cluster_net:
-        ipv4_address: 10.0.0.100
-    environment:
-      ELASTICSEARCH_URL: http://elasticsearch1:9200
 
   logstash:
-    image: docker.elastic.co/logstash/logstash:6.5.4
-    container_name: logstash_workshop
-#    command: logstash -e -strict.perms=false   #possible error
+    image: logstash_arm64
+    container_name: logstash
+    #command: logstash -e -strict.perms=false   #possible error
     environment:
-      - "PIPELINE_WORKERS=1"                    #avoids errors on autoparsing and ensures that the first line in csv is readed in first place, not other
-      - "network.host=0.0.0.0"                  #sets binding ip to all
-      - "xpack.security.enabled=false"          #disabes xpack security
-      - "xpack.monitoring.enabled=false"        #disabes xpack monitorng
-      - "xpack.watcher.enabled=false"           #disabes xpack watcher
-      - "xpack.ml.enabled=false"                #disabes xpack ml
-      - "bootstrap.memory_lock=true"            #disables memory swap
-      - "ES_JAVA_OPTS=-Xms1024m -Xmx1024m"      #sets allocated memory
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
     depends_on:
-      - elasticsearch_workshop_1
-      - elasticsearch_workshop_2
-      - elasticsearch_workshop_3
+      - elasticsearch
     restart: unless-stopped
     ports:
+      - "5000:5000"
       - "5044:5044"
       - "9600:9600"
-    external_links:
-      - elasticsearch_workshop_1:elasticsearch1
-      - elasticsearch_workshop_2:elasticsearch2
-      - elasticsearch_workshop_3:elasticsearch3
-      - logstash_workshop:logstash
-      - kibana_workshop:kibana
     volumes:
-#      - "./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml:ro"     # uncomment for accesible logstash.yml settings, beware of permissions
-      - "./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro"
-#     - "logstash_data:/usr/share/logstash/data"                                 # uncomment for logstash data persistence
-#     - "./csvtoparse:/csvtoparse:ro"                                        # uses filebeat instead
+      - "./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro"
+      - "./logstash/pipeline:/usr/share/logstash/pipeline:ro"
     networks:
       cluster_net:
-        ipv4_address: 10.0.0.150
-
-  filebeat:
-    image: docker.elastic.co/beats/filebeat:6.5.4
-    container_name: filebeat_workshop
-    user: root
-    command: filebeat -e -strict.perms=false
-    depends_on:
-      - logstash
-    restart: unless-stopped
-    external_links:
-      - elasticsearch_workshop_1:elasticsearch1
-      - elasticsearch_workshop_2:elasticsearch2
-      - elasticsearch_workshop_3:elasticsearch3
-      - logstash_workshop:logstash
-    volumes:
-      - "./filebeat/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro"
-#      - "filebeat_data:/usr/share/filebeat/data/"                                # uncomment for filebeat registry persistence
-      - "./csvtoparse:/csvtoparse:ro"
-    networks:
-      cluster_net:
-        ipv4_address: 10.0.0.200
 
 networks:
     cluster_net:
       driver: bridge
-      ipam:
-        config:
-          - subnet: 10.0.0.0/24
-            gateway: 10.0.0.254
 
 volumes:
-    es_data1:
-    es_data2:
-    es_data3:
+    es_data:
     logstash_data:
-    filebeat_data:
