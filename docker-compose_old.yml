@@ -1,0 +1,58 @@
+version: '3.5'
+
+services:
+  elasticsearch:
+    image: elasticsearch_arm64
+    container_name: elasticsearch
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data  # persist data
+      - "./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro"
+    restart: unless-stopped
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      elk:
+
+  kibana:
+    image: kibana_arm64
+    container_name: kibana
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+    ports:
+      - "5601:5601"
+    volumes:
+      - "./kibana/config/:/usr/share/kibana/config:ro"
+    networks:
+      elk:
+
+  logstash:
+    image: logstash_arm64
+    container_name: logstash
+    #command: logstash -e -strict.perms=false   #possible error
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    depends_on:
+      - elasticsearch
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+      - "5044:5044"
+      - "9600:9600"
+    volumes:
+      - "logstash_data:/usr/share/logstash/data" # uncomment for logstash data persistence
+      - "./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro"
+      - "./logstash/pipeline:/usr/share/logstash/pipeline:ro"
+    networks:
+      elk:
+
+networks:
+    elk:
+      driver: bridge
+
+volumes:
+    es_data:
+    logstash_data:

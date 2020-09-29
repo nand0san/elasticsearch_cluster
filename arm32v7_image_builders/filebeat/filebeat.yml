@@ -1,0 +1,20 @@
+filebeat.config.inputs:
+    enabled: true
+    path: configs/*.yml
+    reload.enabled: true
+    reload.period: 10s
+filebeat.inputs:
+    - type: tcp
+        max_message_size: 10MiB
+        host: "0.0.0.0:2000"
+    - type: syslog
+        protocol.udp.enabled: true
+        protocol.host: "0.0.0.0:2514"
+output.elasticsearch:
+    hosts: ["http://elasticsearch:9200"]
+
+setup.kibana.host: "http://kibana:5601"
+
+setup.dashboards.enabled: true
+
+<34>1 2020-03-28T04:47:15.003Z mymachine.example.com su - ID47 - BOM'su root' failed for lonvick on /dev/pts/8
