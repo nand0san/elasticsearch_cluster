@@ -127,7 +127,7 @@ services:
       - kibana_workshop:kibana
     volumes:
 #      - "./logstash/logstash.yml:/usr/share/logstash/config/logstash.yml:ro"     # uncomment for accesible logstash.yml settings, beware of permissions
-      - "./logstash/logstash.conf:/usr/share/logstash/pipeline/logstash.conf:ro"
+      - "./logstash/logstash_old.conf:/usr/share/logstash/pipeline/logstash_old.conf:ro"
 #     - "logstash_data:/usr/share/logstash/data"                                 # uncomment for logstash data persistence
 #     - "./csvtoparse:/csvtoparse:ro"                                        # uses filebeat instead
     networks:

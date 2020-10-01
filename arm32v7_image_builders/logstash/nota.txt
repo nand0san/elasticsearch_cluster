@@ -1,0 +1,3 @@
+cd ./logstash
+docker build -t custom_logstash .
+docker run --add-host=logstash:172.17.0.3 -d -p 5044:5044 --link=elasticsearch --name logstash --restart=always -d custom_logstash

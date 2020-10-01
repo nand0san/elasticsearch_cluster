@@ -1,0 +1,20 @@
+version: '2'
+
+logstash:
+    image: custom_logstash
+    container_name: logstash_compose
+    command: logstash -e -strict.perms=false   #possible error
+    environment:
+      - "network.host=0.0.0.0"                  #sets binding ip to all
+      - "xpack.security.enabled=false"          #disabes xpack security
+      - "xpack.monitoring.enabled=false"        #disabes xpack monitorng
+      - "xpack.watcher.enabled=false"           #disabes xpack watcher
+      - "xpack.ml.enabled=false"                #disabes xpack ml
+      - "bootstrap.memory_lock=true"            #disables memory swap
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"      #sets allocated memory
+    restart: unless-stopped
+    ports:
+      - "5044:5044"
+      - "9600:9600"
+    volumes:
+      - "./logstash/beats.conf:/etc/logstash/conf.d/beats.conf:ro"

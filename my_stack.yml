@@ -1,0 +1,41 @@
+version: "3.7"
+
+services:
+  node1:
+    image: elasticsearch
+    build: ./arm32v7_image_builders/elasticsearch
+    healthcheck:
+      test: curl -fs http://localhost:9200/_cat/health || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 45s
+    environment:
+      bootstrap.memory_lock: true
+      discovery.zen.minimum_master_nodes: 2
+      discovery.zen.ping.unicast.hosts: node1, node2
+      discovery.zen.ping_timeout: 5s
+      discovery.zen.commit_timeout: 5s
+      node.master: true
+      node.data: false
+      node.ingest: false
+      node.name: es-master1
+      cluster.name: "docker-swarm-cluster"
+      network.host: 0.0.0.0
+      action.destructive_requires_name: true
+    configs:
+      - source: ./arm32v7_image_builders/elasticsearch/elasticsearch.yml
+        target: /usr/share/elasticsearch/config/elasticsearch.yml
+      - source: ./arm32v7_image_builders/elasticsearch/jvm.options
+        target: /usr/share/elasticsearch/config/jvm.options
+    deploy:
+      endpoint_mode: dnsrr
+      mode: "replicated"
+      replicas: 1
+      resources:
+        limits:
+          memory: 512m
+    networks:
+      - esnet
+    volumes:
+      - esmaster1:/usr/share/elasticsearch/data

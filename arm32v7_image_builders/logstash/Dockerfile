@@ -41,5 +41,7 @@ RUN chmod +x /root/start.sh
 
 EXPOSE 1514/udp
 EXPOSE 2055/udp
+EXPOSE 5044
+EXPOSE 9300
 
 CMD [ "/root/start.sh" ]
