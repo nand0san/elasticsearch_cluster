@@ -66,7 +66,7 @@ _**http://localhost:5601/**_
 
 ## Contraseñas:
 
-Se pueden modificar en el archivo .env, por defecto la contraseñas sería `password`.
+Se pueden modificar en el archivo `.env`, por defecto la contraseñas sería `password`.
 
 ```# Password for the 'elastic' user (at least 6 characters)
 ELASTIC_PASSWORD=password
