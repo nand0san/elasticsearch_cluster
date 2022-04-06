@@ -8,24 +8,24 @@ Cluster en docker compose para iniciar tres nodos y kibana.
 El cluster está dotado de persistencia de datos, aunque se paren los contenedores y se eliminen. Esto se ha hecho a través de los volúmenes gestionados por la plataforma docker según vemos al final de su archivo docker-compose.yml.
 
 
-## macOS
+## Windows
 
 Testado en Windows 11 Desktop 4.6.1 (76265) :
 
 
 ## Requerimientos:
 
--disk image size: 80 GB (al gusto)
+- disk image size: 80 GB (al gusto)
 
--4 processors
+- 4 processors
 
--RAM memory: 12GB
+- RAM memory: 12GB
 
--Versión de elasticsearch y kibana 8.1.2
+- Versión de elasticsearch y kibana 8.1.2
 
 
 
-## Uso básico:
+## Uso básico docker:
 
 
 **Inicar el cluster** en modo detached (puede tardar en arrancar dependiendo de los datos almacenados):
@@ -67,6 +67,16 @@ _**http://localhost:5601/**_
 ## Contraseñas:
 
 Se pueden modificar en el archivo .env, por defecto la contraseñas sería `password`.
+
+```# Password for the 'elastic' user (at least 6 characters)
+ELASTIC_PASSWORD=password
+
+# Password for the 'kibana_system' user (at least 6 characters)
+KIBANA_PASSWORD=password
+
+# Version of Elastic products
+STACK_VERSION=8.1.2
+```
 
 ## Para ingestión de datos:
 
