@@ -4,4 +4,4 @@
 #
 server.name: kibana
 server.host: "0"
-elasticsearch.hosts: ["http://172.0.0.2:9200/"] # probar con la ip del host q corre docker
+elasticsearch.hosts: ["https://es01:9200"] # probar con la ip del host q corre docker
